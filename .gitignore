@@ -1,5 +1,5 @@
 /.git
 data_cricketrs
 /dataset
-/data_cricketers
+# /data_cricketers
 /data_test
