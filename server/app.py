@@ -5,6 +5,7 @@ import face_recognition
 import pickle
 import pandas as pd
 import os
+from serpapi import GoogleSearch
 
 app = Flask(__name__)
 CORS(app, origins="*")  # Enable CORS for all origins
@@ -88,6 +89,39 @@ def recognize_player():
         }), 200
     else:
         return jsonify({"message": "No match found"}), 404
+
+# Route to fetch player's images from Google Images using SERP API
+@app.route('/test', methods=['GET'])
+def test():
+    try:
+        player_name = request.args.get("player_name", default="Virat Kohli")
+        params = {
+            "api_key": "fe1cfe0623095a4656888dcdf0721282554abe7b4b46e40122a4f836450ee556",
+            "engine": "google_images",
+            "q": player_name,
+            "hl": "en",
+            "gl": "in"
+        }
+
+        search = GoogleSearch(params)
+        results = search.get_dict()
+
+        # Extract image URLs from the response
+        image_results = results.get('images_results', [])
+        image_urls = [image.get('thumbnail') for image in image_results if 'thumbnail' in image]
+
+        return jsonify({"images": image_urls}), 200
+
+    except Exception as e:
+        # Log the full stack trace of the error to help with debugging
+        error_traceback = traceback.format_exc()
+        print("Error fetching images:", error_traceback)  # Optional: log to a file instead
+
+        return jsonify({
+            "message": "An error occurred while fetching images.",
+            "error": str(e),
+            "traceback": error_traceback
+        }), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
