@@ -40,7 +40,8 @@ def format_player_name(player_name):
 base_dir = '../Statistics'
 file_structure = {
     'Batting': {'ODI': 'ODI_data.csv', 'T20': 't20.csv', 'Test': 'test.csv'},
-    'Bowling': {'ODI': 'Bowling_ODI.csv', 'T20': 'Bowling_t20.csv', 'Test': 'Bowling_test.csv'}
+    'Bowling': {'ODI': 'Bowling_ODI.csv', 'T20': 'Bowling_t20.csv', 'Test': 'Bowling_test.csv'},
+    'Fielding': {'ODI': 'Fielding_ODI.csv', 'T20': 'Fielding_t20.csv', 'Test': 'Fielding_test.csv'}
 }
 
 # Route to recognize the player from an uploaded image

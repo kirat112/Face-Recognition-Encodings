@@ -18,9 +18,7 @@ import {
   TableRow,
   TableHead,
 } from "./components/ui/table.jsx";
-import {
-  SidebarProvider,
-} from "./components/ui/sidebar.jsx";
+import { SidebarProvider } from "./components/ui/sidebar.jsx";
 import { Upload, User, Home, BarChart, Settings, LogOut } from "lucide-react";
 
 export default function DashboardPage() {
@@ -149,40 +147,59 @@ export default function DashboardPage() {
               <CardContent className="space-y-4 overflow-auto">
                 {playerName ? (
                   <Table className="w-full table-fixed">
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="text-center w-1/3">Category</TableHead>
-                      <TableHead className="text-center w-1/3">Format</TableHead>
-                      <TableHead className="text-center w-1/3">Statistic</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody className="overflow-auto">
-                    {Object.entries(statistics).map(([category, formats]) =>
-                      Object.entries(formats).map(([format, stats]) => (
-                        <TableRow key={`${category}-${format}`}>
-                          <TableCell className="text-center font-bold">{category}</TableCell>
-                          <TableCell className="text-center font-bold">{format}</TableCell>
-                          <TableCell className="text-center">
-                            {/* Check if the stats are an object and format it properly */}
-                            {typeof stats === "object" && stats !== null ? (
-                              <div className="space-y-2 text-left pl-48"> {/* Apply padding here */}
-                                {Object.entries(stats).map(([key, value]) => (
-                                  <div key={key} className="flex gap-2">
-                                    <span className="font-semibold min-w-[50px]">{key}:</span> {/* Add a fixed min-width */}
-                                    <span>{value}</span>
-                                  </div>
-                                ))}
-                              </div>
-                            ) : (
-                              <span>No stats found for this Format</span>
-                            )}
-                          </TableCell>
-                        </TableRow>
-                      ))
-                    )}
-                  </TableBody>
-                </Table>
-                               
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="text-center w-1/3">
+                          Category
+                        </TableHead>
+                        <TableHead className="text-center w-1/3">
+                          Format
+                        </TableHead>
+                        <TableHead className="text-center w-1/3">
+                          Statistic
+                        </TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody className="overflow-auto">
+                      {Object.entries(statistics).map(([category, formats]) =>
+                        Object.entries(formats).map(([format, stats]) => (
+                          <TableRow key={`${category}-${format}`}>
+                            <TableCell className="text-center font-bold">
+                              {category}
+                            </TableCell>
+                            <TableCell className="text-center font-bold">
+                              {format}
+                            </TableCell>
+                            <TableCell className="text-center">
+                              {/* Check if the stats are an object and format it properly */}
+                              {typeof stats === "object" && stats !== null ? (
+                                <div className="space-y-2 text-left pl-48">
+                                  {" "}
+                                  {/* Apply padding here */}
+                                  {Object.entries(stats)
+                                    .filter(
+                                      ([key]) =>
+                                        key !== "Player" && key !== "Index"
+                                    ) // Filter out "Player" and "Index"
+                                    .map(([key, value]) => (
+                                      <div key={key} className="flex gap-2">
+                                        <span className="font-semibold min-w-[50px]">
+                                          {key}:
+                                        </span>{" "}
+                                        {/* Add a fixed min-width */}
+                                        <span>{value}</span>
+                                      </div>
+                                    ))}
+                                </div>
+                              ) : (
+                                <span>No stats found for this Format</span>
+                              )}
+                            </TableCell>
+                          </TableRow>
+                        ))
+                      )}
+                    </TableBody>
+                  </Table>
                 ) : (
                   <div className="text-center text-muted-foreground">
                     Upload and recognize a player to view their statistics.
