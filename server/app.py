@@ -11,7 +11,9 @@ app = Flask(__name__)
 CORS(app, origins="*")  # Enable CORS for all origins
 
 # Load the face encodings from the pickle file
-with open('face_encodings_single_img_test.pkl', 'rb') as f:
+# with open('face_encodings_single_img_test.pkl', 'rb') as f:
+#     stored_encodings = pickle.load(f)
+with open('face_encodings_updated.pkl', 'rb') as f:
     stored_encodings = pickle.load(f)
 
 # Function to compare the uploaded image with stored encodings
