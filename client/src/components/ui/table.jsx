@@ -1,4 +1,3 @@
-// components/ui/table.jsx
 
 import React from 'react'
 

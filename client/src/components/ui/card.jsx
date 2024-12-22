@@ -1,4 +1,3 @@
-// components/ui/card.jsx
 
 import React from 'react'
 

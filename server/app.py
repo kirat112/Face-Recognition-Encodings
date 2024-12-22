@@ -6,9 +6,21 @@ import pickle
 import pandas as pd
 import os
 from serpapi import GoogleSearch
+from dotenv import load_dotenv
+import traceback
 
 app = Flask(__name__)
 CORS(app, origins="*")  # Enable CORS for all origins
+
+# Load the environment variables from the .env file
+load_dotenv()
+
+# Access the API key
+serp_api_key = os.getenv("SERP_API_KEY")
+
+# Use the API key
+print(f"Your SERP API Key is: {serp_api_key}")
+
 
 # Load the face encodings from the pickle file
 # with open('face_encodings_single_img_test.pkl', 'rb') as f:
@@ -98,7 +110,7 @@ def test():
     try:
         player_name = request.args.get("player_name", default="Virat Kohli")
         params = {
-            "api_key": "fe1cfe0623095a4656888dcdf0721282554abe7b4b46e40122a4f836450ee556",
+            "api_key": serp_api_key,
             "engine": "google_images",
             "q": player_name,
             "hl": "en",

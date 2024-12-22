@@ -1,4 +1,3 @@
-// components/ui/sidebar.jsx
 
 import React, { createContext, useContext } from 'react'
 
